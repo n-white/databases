@@ -1,40 +1,40 @@
 var models = require('../models');
-var mysql = require('mysql');
-var app = require('../app.js');
 
 module.exports = {
+
   messages: {
     get: function (req, res) {
-
-    }, // a function which handles a get request for all messages
+      // console.log('test')
+      models.messages.get(function(err, results) {
+        if (err) { console.log('error'); }
+        res.json(results);
+      });
+    },
     post: function (req, res) {
-      //get username and conten
-      console.log('in controllers func');
-      models.messages.post();
-      // res.send("INSERT INTO messages (content, username) VALUES ('22AsUHH DUDE', 'HOH')");
-      //console.log('request body', req);
+      
+      var params = [req.body.text, req.body.username, req.body.roomname];
+      // console.log(params);
+      models.messages.post(params, function(err, results) {
 
-      // var username = 
-      // var content = 
-
-      // app.post('/classes/messages', function(req, res) {
-      //   console.log('post request recieved');
-      // });
-
-      // var message = { username: username, content: content };
-      // con.query('INSERT INTO messages SET ?' + message, function(err, res) {
-      //   if (err) throw err;
-
-      //   console.log('Last insert ID:', res.insertId, res);
-      // });
-    } // a function which handles posting a message to the database
+        if (err) {  console.log('error'); }
+        res.sendStatus(201);
+      });
+    }
   },
 
   users: {
-    // Ditto as above
-    get: function (req, res) {},
+    get: function (req, res) {
+      models.users.get(function(err, results) {
+        if (err) {  console.log('error'); }
+        res.json(results);
+      });
+    },
     post: function (req, res) {
-      models.users.post();
+      var params = [req.body.username];
+      models.users.post(params, function(err, results) {
+        if (err) {  console.log('error'); }
+        res.sendStatus(201);
+      });
     }
   }
 };

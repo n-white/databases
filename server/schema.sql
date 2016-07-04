@@ -3,30 +3,24 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
-  /* Describe your table here.*/
-  id int NOT NULL AUTO_INCREMENT, 
-  content varchar(200),
-  username varchar(20),
-  createdAt DATETIME DEFAULT NULL,
-  chatroomID int,
-  FOREIGN KEY (chatroomID),
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE chatrooms (
   id int NOT NULL AUTO_INCREMENT,
-  roomName varchar(20),
-  message_id int,
-  FOREIGN KEY(message_id),
-  PRIMARY KEY (id)
-)
+  userid int NOT NULL,
+  text varchar(200)  NOT NULL,
+  roomname varchar(20),
+  PRIMARY KEY (ID)
+);
 
 /* Create other tables and define schemas for them here! */
 
 
+CREATE TABLE users (
+  id        int    NOT NULL AUTO_INCREMENT,
+  username  varchar(40)   NOT NULL,
+  PRIMARY KEY (ID)
+);
 
 
 /*  Execute this file from the command line by typing:
- *    mysql -u -p root <server/schema.sql
+ *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
 
